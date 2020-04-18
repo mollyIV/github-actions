@@ -42,7 +42,10 @@ function run() {
             if (canRemoveLabel) {
                 yield removeLabel(client, prNumber, labelToRemove);
             }
-            yield addLabels(client, prNumber, [core.getInput('pr-label-to-add')]);
+            const labelToAdd = core.getInput('pr-label-to-add');
+            if (labelToAdd) {
+                yield addLabels(client, prNumber, [labelToAdd]);
+            }
             yield addComment(client, prNumber, core.getInput('pr-comment', { required: true }));
         }
         catch (error) {

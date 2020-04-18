@@ -36,7 +36,11 @@ export async function run() {
       await removeLabel(client, prNumber, labelToRemove);
     }
 
-    await addLabels(client, prNumber, [core.getInput('pr-label-to-add')]);
+    const labelToAdd = core.getInput('pr-label-to-add');
+    if (labelToAdd) {
+      await addLabels(client, prNumber, [labelToAdd]);
+    }
+    
     await addComment(
       client,
       prNumber,
